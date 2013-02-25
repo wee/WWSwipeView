@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		422E145C16DAF12F00C76E72 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 422E145B16DAF12F00C76E72 /* README */; };
 		4253CD8416DAEDFF00935B2A /* WWSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4253CD8316DAEDFF00935B2A /* WWSwipeViewController.m */; };
 		428A875416D94FD9008377F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428A875316D94FD9008377F3 /* UIKit.framework */; };
 		428A875616D94FD9008377F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428A875516D94FD9008377F3 /* Foundation.framework */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		422E145B16DAF12F00C76E72 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		4253CD8216DAEDFF00935B2A /* WWSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WWSwipeViewController.h; path = WWSwipeViewController/WWSwipeViewController.h; sourceTree = "<group>"; };
 		4253CD8316DAEDFF00935B2A /* WWSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WWSwipeViewController.m; path = WWSwipeViewController/WWSwipeViewController.m; sourceTree = "<group>"; };
 		428A875016D94FD9008377F3 /* WWSwipeView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWSwipeView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,7 @@
 		428A874716D94FD9008377F3 = {
 			isa = PBXGroup;
 			children = (
+				422E145B16DAF12F00C76E72 /* README */,
 				428A878516D97391008377F3 /* QuartzCore.framework */,
 				428A875916D94FD9008377F3 /* WWSwipeView */,
 				428A875216D94FD9008377F3 /* Frameworks */,
@@ -206,6 +209,7 @@
 				428A877D16D95194008377F3 /* 1.jpg in Resources */,
 				428A877E16D95194008377F3 /* 2.jpg in Resources */,
 				428A877F16D95194008377F3 /* 3.jpg in Resources */,
+				422E145C16DAF12F00C76E72 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
