@@ -23,7 +23,6 @@
     self.swipeViewController.delegate = self;
     self.swipeViewController.view.frame = CGRectMake(0, 0, 768, 300);
     [self.view addSubview:self.swipeViewController.view];
-    self.view.backgroundColor = [UIColor blueColor];
 }
 
 - (void)didReceiveMemoryWarning

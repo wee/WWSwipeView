@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4253CD8016DA880C00935B2A /* WWScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4253CD7F16DA880C00935B2A /* WWScrollView.m */; };
 		428A875416D94FD9008377F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428A875316D94FD9008377F3 /* UIKit.framework */; };
 		428A875616D94FD9008377F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428A875516D94FD9008377F3 /* Foundation.framework */; };
 		428A875816D94FD9008377F3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 428A875716D94FD9008377F3 /* CoreGraphics.framework */; };
@@ -28,8 +27,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4253CD7E16DA880C00935B2A /* WWScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WWScrollView.h; sourceTree = "<group>"; };
-		4253CD7F16DA880C00935B2A /* WWScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WWScrollView.m; sourceTree = "<group>"; };
 		428A875016D94FD9008377F3 /* WeeSwipeView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeeSwipeView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		428A875316D94FD9008377F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		428A875516D94FD9008377F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -111,8 +108,6 @@
 				428A875A16D94FD9008377F3 /* Supporting Files */,
 				428A878016D952BB008377F3 /* WWSwipeViewController.h */,
 				428A878116D952BB008377F3 /* WWSwipeViewController.m */,
-				4253CD7E16DA880C00935B2A /* WWScrollView.h */,
-				4253CD7F16DA880C00935B2A /* WWScrollView.m */,
 			);
 			path = WeeSwipeView;
 			sourceTree = "<group>";
@@ -217,7 +212,6 @@
 				428A876416D94FD9008377F3 /* WWAppDelegate.m in Sources */,
 				428A876D16D94FDA008377F3 /* WWViewController.m in Sources */,
 				428A878316D952BB008377F3 /* WWSwipeViewController.m in Sources */,
-				4253CD8016DA880C00935B2A /* WWScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

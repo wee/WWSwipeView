@@ -7,11 +7,10 @@
 //
 #import <QuartzCore/QuartzCore.h>
 #import "WWSwipeViewController.h"
-#import "WWScrollView.h"
 
 @interface WWSwipeViewController () <UIScrollViewDelegate>
 
-@property (nonatomic) WWScrollView *scrollView;
+@property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic, assign) CGSize imageSize;
 @property (nonatomic, assign) NSInteger currentImageIndex;
 @property (nonatomic, assign) CGFloat currentOffsetX;
@@ -22,7 +21,7 @@
 
 - (void)viewDidLoad
 {
-    self.scrollView = [[WWScrollView alloc] init];
+    self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.delegate = self;
     [self.view addSubview:self.scrollView];
 }
@@ -37,18 +36,10 @@
     [self setUpScrollView:0.0];
 }
 
-- (void)setUpScrollView:(CGFloat)radiusOffset
+- (void)setUpScrollView:(CGFloat)radianOffset
 {
-    NSLog(@"before: radius offest %f, currentImageIndex %d", radiusOffset * 180 / M_PI, self.currentImageIndex);
-    if (radiusOffset > M_PI_4) {
-        self.currentImageIndex--;
-        radiusOffset -= M_PI_4;
-        self.currentOffsetX = self.scrollView.contentOffset.x;
-    } else if (radiusOffset < -M_PI_4) {
-        self.currentImageIndex++;
-        radiusOffset += M_PI_4;
-        self.currentOffsetX = self.scrollView.contentOffset.x;
-    }
+    NSLog(@"setUpScrollView: radian offset %f, currentImageIndex %d", radianOffset * 180 / M_PI, self.currentImageIndex);
+
     CGFloat thumbnailWidth = self.scrollView.bounds.size.width / 2;
     CGFloat thumbnailHeight = [self imageSize].height * thumbnailWidth / [self imageSize].width;
     
@@ -58,21 +49,19 @@
     for (int index = -2; index <= 2; index++) {
         UIImageView *view = [self.delegate viewAtIndex:index + self.currentImageIndex];
         if (view) {
-            CGFloat radius = [self radiusFromPosition:index] + radiusOffset;
-            CGFloat centerX = self.scrollView.bounds.size.width + (self.scrollView.bounds.size.width * (1 + sin(radius)) / 2.0);
-            CGFloat scale = 0.5 + 0.5 * cos(radius);
+            CGFloat radian = [self radianFromPosition:index] + radianOffset;
+            CGFloat centerX = self.scrollView.contentOffset.x + (self.scrollView.bounds.size.width * (1 + sin(radian)) / 2.0);
+            CGFloat scale = 0.5 + 0.5 * cos(radian);
             CGFloat x = centerX - (thumbnailWidth * scale) / 2.0;
             CGFloat centerY = self.scrollView.bounds.size.height / 2.0;
             CGFloat y = centerY - (thumbnailHeight * scale) / 2.0;
             view.frame = CGRectMake(x, y, thumbnailWidth * scale, thumbnailHeight * scale);
-//            NSLog(@"radiusOffset = %f, scale = %f, frame = %@, cx = %f, cy = %f", radiusOffset * 180/M_PI, scale, NSStringFromCGRect(view.frame), centerX, centerY);
             [views addObject:view];
         }
     }
     for (UIView *view in [self sortViewByWidth:views]) {
         [self.scrollView addSubview:view];
     }
-//    NSLog(@"self.scrollView.contentSize %@ self.scrollView.contentOffset %@", NSStringFromCGSize(self.scrollView.contentSize), NSStringFromCGPoint(self.scrollView.contentOffset));
 }
 
 - (NSArray *)sortViewByWidth:(NSArray *)views
@@ -90,7 +79,7 @@
     }];
 }
 
-- (CGFloat)radiusFromPosition:(NSInteger)index
+- (CGFloat)radianFromPosition:(NSInteger)index
 {
     return index * M_PI / 4;
 }
@@ -105,16 +94,32 @@
 
  - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (self.currentOffsetX == 0)
+        return;
     CGFloat deltaX = self.currentOffsetX - scrollView.contentOffset.x;
-    CGFloat radiusOffset = ((deltaX * M_PI * 4) / self.scrollView.bounds.size.width);
-    NSLog(@"scroll to %@ from %f radius %f delta %f bounds width = %f self.currentOffsetX %f", NSStringFromCGPoint(scrollView.contentOffset), self.currentOffsetX, radiusOffset * 180/M_PI, deltaX, self.scrollView.bounds.size.width, self.currentOffsetX);
-    [self setUpScrollView:radiusOffset];
+    CGFloat radianOffset = ((deltaX * M_PI) / self.scrollView.bounds.size.width);
+
+    //    radianOffset = -M_PI_4;
+    radianOffset = [self adjustRadian:radianOffset deltaX:deltaX];
+    [self setUpScrollView:radianOffset];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+- (CGFloat)adjustRadian:(CGFloat)radianOffset deltaX:(CGFloat)deltaX
 {
-    NSLog(@"sroll end %@", NSStringFromCGPoint(scrollView.contentOffset));
+    if (radianOffset > M_PI_4) {
+        self.currentImageIndex--;
+        radianOffset -= M_PI_4;
+        if (self.currentImageIndex <= 0)
+            self.currentImageIndex = 0;
+        self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y);
+    } else if (radianOffset < -M_PI_4) {
+        self.currentImageIndex++;
+        radianOffset += M_PI_4;
+        if (self.currentImageIndex >= [self.delegate numberOfItems])
+            self.currentImageIndex = [self.delegate numberOfItems] - 1;
+        self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y);
+    }
+    return radianOffset;
 }
-
 
 @end
