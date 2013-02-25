@@ -29,14 +29,14 @@
 /* Begin PBXFileReference section */
 		4253CD8216DAEDFF00935B2A /* WWSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WWSwipeViewController.h; path = WWSwipeViewController/WWSwipeViewController.h; sourceTree = "<group>"; };
 		4253CD8316DAEDFF00935B2A /* WWSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WWSwipeViewController.m; path = WWSwipeViewController/WWSwipeViewController.m; sourceTree = "<group>"; };
-		428A875016D94FD9008377F3 /* WeeSwipeView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeeSwipeView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		428A875016D94FD9008377F3 /* WWSwipeView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWSwipeView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		428A875316D94FD9008377F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		428A875516D94FD9008377F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		428A875716D94FD9008377F3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		428A875B16D94FD9008377F3 /* WeeSwipeView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WeeSwipeView-Info.plist"; sourceTree = "<group>"; };
+		428A875B16D94FD9008377F3 /* WWSwipeView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WWSwipeView-Info.plist"; sourceTree = "<group>"; };
 		428A875D16D94FD9008377F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		428A875F16D94FD9008377F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		428A876116D94FD9008377F3 /* WeeSwipeView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeeSwipeView-Prefix.pch"; sourceTree = "<group>"; };
+		428A876116D94FD9008377F3 /* WWSwipeView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WWSwipeView-Prefix.pch"; sourceTree = "<group>"; };
 		428A876216D94FD9008377F3 /* WWAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WWAppDelegate.h; sourceTree = "<group>"; };
 		428A876316D94FD9008377F3 /* WWAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WWAppDelegate.m; sourceTree = "<group>"; };
 		428A876516D94FDA008377F3 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -89,7 +89,7 @@
 		428A875116D94FD9008377F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				428A875016D94FD9008377F3 /* WeeSwipeView.app */,
+				428A875016D94FD9008377F3 /* WWSwipeView.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,10 +123,10 @@
 		428A875A16D94FD9008377F3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				428A875B16D94FD9008377F3 /* WeeSwipeView-Info.plist */,
+				428A875B16D94FD9008377F3 /* WWSwipeView-Info.plist */,
 				428A875C16D94FD9008377F3 /* InfoPlist.strings */,
 				428A875F16D94FD9008377F3 /* main.m */,
-				428A876116D94FD9008377F3 /* WeeSwipeView-Prefix.pch */,
+				428A876116D94FD9008377F3 /* WWSwipeView-Prefix.pch */,
 				428A876516D94FDA008377F3 /* Default.png */,
 				428A876716D94FDA008377F3 /* Default@2x.png */,
 				428A876916D94FDA008377F3 /* Default-568h@2x.png */,
@@ -148,9 +148,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		428A874F16D94FD9008377F3 /* WeeSwipeView */ = {
+		428A874F16D94FD9008377F3 /* WWSwipeView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 428A877616D94FDA008377F3 /* Build configuration list for PBXNativeTarget "WeeSwipeView" */;
+			buildConfigurationList = 428A877616D94FDA008377F3 /* Build configuration list for PBXNativeTarget "WWSwipeView" */;
 			buildPhases = (
 				428A874C16D94FD9008377F3 /* Sources */,
 				428A874D16D94FD9008377F3 /* Frameworks */,
@@ -160,9 +160,9 @@
 			);
 			dependencies = (
 			);
-			name = WeeSwipeView;
+			name = WWSwipeView;
 			productName = WeeSwipeView;
-			productReference = 428A875016D94FD9008377F3 /* WeeSwipeView.app */;
+			productReference = 428A875016D94FD9008377F3 /* WWSwipeView.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -175,7 +175,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Wee Witthawaskul";
 			};
-			buildConfigurationList = 428A874B16D94FD9008377F3 /* Build configuration list for PBXProject "WeeSwipeView" */;
+			buildConfigurationList = 428A874B16D94FD9008377F3 /* Build configuration list for PBXProject "WWSwipeView" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -187,7 +187,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				428A874F16D94FD9008377F3 /* WeeSwipeView */,
+				428A874F16D94FD9008377F3 /* WWSwipeView */,
 			);
 		};
 /* End PBXProject section */
@@ -315,9 +315,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WeeSwipeView/WeeSwipeView-Prefix.pch";
-				INFOPLIST_FILE = "WeeSwipeView/WeeSwipeView-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "WeeSwipeView/WWSwipeView-Prefix.pch";
+				INFOPLIST_FILE = "WeeSwipeView/WWSwipeView-Info.plist";
+				PRODUCT_NAME = WWSwipeView;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -326,9 +326,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WeeSwipeView/WeeSwipeView-Prefix.pch";
-				INFOPLIST_FILE = "WeeSwipeView/WeeSwipeView-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "WeeSwipeView/WWSwipeView-Prefix.pch";
+				INFOPLIST_FILE = "WeeSwipeView/WWSwipeView-Info.plist";
+				PRODUCT_NAME = WWSwipeView;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -336,7 +336,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		428A874B16D94FD9008377F3 /* Build configuration list for PBXProject "WeeSwipeView" */ = {
+		428A874B16D94FD9008377F3 /* Build configuration list for PBXProject "WWSwipeView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				428A877416D94FDA008377F3 /* Debug */,
@@ -345,7 +345,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		428A877616D94FDA008377F3 /* Build configuration list for PBXNativeTarget "WeeSwipeView" */ = {
+		428A877616D94FDA008377F3 /* Build configuration list for PBXNativeTarget "WWSwipeView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				428A877716D94FDA008377F3 /* Debug */,
