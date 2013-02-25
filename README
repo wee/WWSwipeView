@@ -1,3 +1,5 @@
 WWSwipeView
 
 Create a horizontal swipeable image view with UITableView-like data source and delegate.
+
+Read more at http://wee.github.com/WWSwipeView
