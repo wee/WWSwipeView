@@ -9,9 +9,11 @@
 #import "WWViewController.h"
 #import "WWSwipeViewController.h"
 
-@interface WWViewController () <WWSwipViewDataSource>
+@interface WWViewController () <WWSwipeViewDataSource, WWSwipeViewDelegate>
 
 @property (nonatomic) WWSwipeViewController *swipeViewController;
+@property (nonatomic) UILabel *selectedLabel;
+
 @end
 
 @implementation WWViewController
@@ -19,10 +21,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.selectedLabel = [[UILabel alloc] init];
+    self.selectedLabel.textColor = [UIColor blackColor];
+    self.selectedLabel.font = [UIFont systemFontOfSize:14];
+    self.selectedLabel.frame = CGRectMake(0, 305, [UIScreen mainScreen].bounds.size.width, 20);
+    [self.view addSubview:self.selectedLabel];
+
+    self.view.backgroundColor = [UIColor whiteColor];
     self.swipeViewController = [[WWSwipeViewController alloc] init];
+    self.swipeViewController.datasource = self;
     self.swipeViewController.delegate = self;
-    self.swipeViewController.view.frame = CGRectMake(0, 0, 768, 300);
+    
+    self.swipeViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300);
     [self.view addSubview:self.swipeViewController.view];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -42,7 +54,7 @@
     return UIInterfaceOrientationMaskAll;
 }
 
-#pragma mark - WWScrollViewDataSource
+#pragma mark - WWSwipeViewDataSource
 - (NSUInteger)numberOfItems
 {
     return 100;
@@ -54,11 +66,20 @@
         return nil;
     }
     index = index % 3;
-    NSString *fileName = [NSString stringWithFormat:@"%d.jpg", (index+1)];
+    NSString *fileName = [self imageFileName:index];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:fileName] ];
     imageView.userInteractionEnabled = NO;
     return imageView;
 }
 
+- (NSString *)imageFileName:(NSInteger)index
+{
+    return [NSString stringWithFormat:@"%d.jpg", (index+1)];
+}
 
+#pragma mark - WWSwipeViewDelegate
+- (void)didSelectItem:(NSInteger)index
+{
+    self.selectedLabel.text = [NSString stringWithFormat:@"Image selected: %@", [self imageFileName:index]];
+}
 @end

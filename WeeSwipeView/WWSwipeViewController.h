@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol WWSwipViewDataSource <NSObject>
+@protocol WWSwipeViewDataSource <NSObject>
 
 @required
 - (NSUInteger)numberOfItems;
@@ -16,8 +16,16 @@
 
 @end
 
+@protocol WWSwipeViewDelegate <NSObject>
+
+@optional
+- (void)didSelectItem:(NSInteger)index;
+
+@end
+
 @interface WWSwipeViewController : UIViewController
 
-@property (nonatomic, weak) id<WWSwipViewDataSource> delegate;
+@property (nonatomic, weak) id<WWSwipeViewDataSource> datasource;
+@property (nonatomic, weak) id<WWSwipeViewDelegate> delegate;
 
 @end

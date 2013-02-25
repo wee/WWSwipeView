@@ -13,6 +13,7 @@
 @property (nonatomic) UIScrollView *scrollView;
 @property (nonatomic, assign) CGSize imageSize;
 @property (nonatomic, assign) NSInteger currentImageIndex;
+@property (nonatomic, assign) NSInteger previousImageIndex;
 @property (nonatomic, assign) CGFloat currentOffsetX;
 
 @end
@@ -24,6 +25,8 @@
     self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.delegate = self;
     [self.view addSubview:self.scrollView];
+    self.previousImageIndex = -1;
+    self.currentImageIndex = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -38,7 +41,7 @@
 
 - (void)setUpScrollView:(CGFloat)radianOffset
 {
-    NSLog(@"setUpScrollView: radian offset %f, currentImageIndex %d", radianOffset * 180 / M_PI, self.currentImageIndex);
+    NSLog(@"setUpScrollView: radian offset %f, currentImageIndex %d scroll offset %f current offset %f", radianOffset * 180 / M_PI, self.currentImageIndex, self.scrollView.contentOffset.x, self.currentOffsetX);
 
     CGFloat thumbnailWidth = self.scrollView.bounds.size.width / 2;
     CGFloat thumbnailHeight = [self imageSize].height * thumbnailWidth / [self imageSize].width;
@@ -47,7 +50,7 @@
     
     NSMutableArray *views = [@[] mutableCopy];
     for (int index = -2; index <= 2; index++) {
-        UIImageView *view = [self.delegate viewAtIndex:index + self.currentImageIndex];
+        UIImageView *view = [self.datasource viewAtIndex:index + self.currentImageIndex];
         if (view) {
             CGFloat radian = [self radianFromPosition:index] + radianOffset;
             CGFloat centerX = self.scrollView.contentOffset.x + (self.scrollView.bounds.size.width * (1 + sin(radian)) / 2.0);
@@ -87,7 +90,7 @@
 - (CGSize)imageSize
 {
     if (_imageSize.width == 0) {
-        self.imageSize = [self.delegate viewAtIndex:0].image.size;
+        self.imageSize = [self.datasource viewAtIndex:0].image.size;
     }
     return _imageSize;
 }
@@ -115,11 +118,21 @@
     } else if (radianOffset < -M_PI_4) {
         self.currentImageIndex++;
         radianOffset += M_PI_4;
-        if (self.currentImageIndex >= [self.delegate numberOfItems])
-            self.currentImageIndex = [self.delegate numberOfItems] - 1;
+        if (self.currentImageIndex >= [self.datasource numberOfItems])
+            self.currentImageIndex = [self.datasource numberOfItems] - 1;
         self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y);
     }
     return radianOffset;
 }
 
+- (void)setCurrentImageIndex:(NSInteger)currentImageIndex
+{
+    _currentImageIndex = currentImageIndex;
+    if (currentImageIndex != self.previousImageIndex) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectItem:)]) {
+            [self.delegate didSelectItem:currentImageIndex];
+        }
+        self.previousImageIndex = currentImageIndex;
+    }
+}
 @end
