@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Wee Witthawaskul. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "WWViewController.h"
 #import "WWSwipeViewController.h"
 
@@ -69,6 +70,11 @@
     NSString *fileName = [self imageFileName:index];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:fileName] ];
     imageView.userInteractionEnabled = NO;
+    imageView.layer.masksToBounds = NO;
+    imageView.layer.cornerRadius = 8;
+    imageView.layer.shadowOffset = CGSizeMake(-5, 5);
+    imageView.layer.shadowRadius = 5;
+    imageView.layer.shadowOpacity = 0.5;
     return imageView;
 }
 
