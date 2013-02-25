@@ -46,9 +46,9 @@
 		428A876C16D94FDA008377F3 /* WWViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WWViewController.m; sourceTree = "<group>"; };
 		428A876F16D94FDA008377F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WWViewController_iPhone.xib; sourceTree = "<group>"; };
 		428A877216D94FDA008377F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WWViewController_iPad.xib; sourceTree = "<group>"; };
-		428A877A16D95194008377F3 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 1.jpg; path = WeeSwipeView/Resources/1.jpg; sourceTree = "<group>"; };
-		428A877B16D95194008377F3 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 2.jpg; path = WeeSwipeView/Resources/2.jpg; sourceTree = "<group>"; };
-		428A877C16D95194008377F3 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 3.jpg; path = WeeSwipeView/Resources/3.jpg; sourceTree = "<group>"; };
+		428A877A16D95194008377F3 /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 1.jpg; path = WWSwipeView/Resources/1.jpg; sourceTree = "<group>"; };
+		428A877B16D95194008377F3 /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 2.jpg; path = WWSwipeView/Resources/2.jpg; sourceTree = "<group>"; };
+		428A877C16D95194008377F3 /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = 3.jpg; path = WWSwipeView/Resources/3.jpg; sourceTree = "<group>"; };
 		428A878516D97391008377F3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -80,7 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				428A878516D97391008377F3 /* QuartzCore.framework */,
-				428A875916D94FD9008377F3 /* WeeSwipeView */,
+				428A875916D94FD9008377F3 /* WWSwipeView */,
 				428A875216D94FD9008377F3 /* Frameworks */,
 				428A875116D94FD9008377F3 /* Products */,
 			);
@@ -104,7 +104,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		428A875916D94FD9008377F3 /* WeeSwipeView */ = {
+		428A875916D94FD9008377F3 /* WWSwipeView */ = {
 			isa = PBXGroup;
 			children = (
 				4253CD8116DAEDF000935B2A /* WWSwipeViewController */,
@@ -117,7 +117,7 @@
 				428A877116D94FDA008377F3 /* WWViewController_iPad.xib */,
 				428A875A16D94FD9008377F3 /* Supporting Files */,
 			);
-			path = WeeSwipeView;
+			path = WWSwipeView;
 			sourceTree = "<group>";
 		};
 		428A875A16D94FD9008377F3 /* Supporting Files */ = {
@@ -161,7 +161,7 @@
 			dependencies = (
 			);
 			name = WWSwipeView;
-			productName = WeeSwipeView;
+			productName = WWSwipeView;
 			productReference = 428A875016D94FD9008377F3 /* WWSwipeView.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -315,8 +315,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WeeSwipeView/WWSwipeView-Prefix.pch";
-				INFOPLIST_FILE = "WeeSwipeView/WWSwipeView-Info.plist";
+				GCC_PREFIX_HEADER = "WWSwipeView/WWSwipeView-Prefix.pch";
+				INFOPLIST_FILE = "WWSwipeView/WWSwipeView-Info.plist";
 				PRODUCT_NAME = WWSwipeView;
 				WRAPPER_EXTENSION = app;
 			};
@@ -326,8 +326,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WeeSwipeView/WWSwipeView-Prefix.pch";
-				INFOPLIST_FILE = "WeeSwipeView/WWSwipeView-Info.plist";
+				GCC_PREFIX_HEADER = "WWSwipeView/WWSwipeView-Prefix.pch";
+				INFOPLIST_FILE = "WWSwipeView/WWSwipeView-Info.plist";
 				PRODUCT_NAME = WWSwipeView;
 				WRAPPER_EXTENSION = app;
 			};

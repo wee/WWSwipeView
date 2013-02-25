@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "428A874F16D94FD9008377F3"
-               BuildableName = "WeeSwipeView.app"
+               BuildableName = "WWSwipeView.app"
                BlueprintName = "WWSwipeView"
                ReferencedContainer = "container:WWSwipeView.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "428A874F16D94FD9008377F3"
-            BuildableName = "WeeSwipeView.app"
+            BuildableName = "WWSwipeView.app"
             BlueprintName = "WWSwipeView"
             ReferencedContainer = "container:WWSwipeView.xcodeproj">
          </BuildableReference>
@@ -52,7 +52,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "428A874F16D94FD9008377F3"
-            BuildableName = "WeeSwipeView.app"
+            BuildableName = "WWSwipeView.app"
             BlueprintName = "WWSwipeView"
             ReferencedContainer = "container:WWSwipeView.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "428A874F16D94FD9008377F3"
-            BuildableName = "WeeSwipeView.app"
+            BuildableName = "WWSwipeView.app"
             BlueprintName = "WWSwipeView"
             ReferencedContainer = "container:WWSwipeView.xcodeproj">
          </BuildableReference>
