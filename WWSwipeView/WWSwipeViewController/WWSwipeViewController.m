@@ -15,6 +15,7 @@
 @property (nonatomic, assign) NSInteger currentImageIndex;
 @property (nonatomic, assign) NSInteger previousImageIndex;
 @property (nonatomic, assign) CGFloat currentOffsetX;
+@property (nonatomic, assign) CGFloat previousDeltaX;
 
 @end
 
@@ -24,6 +25,7 @@
 {
     self.scrollView = [[UIScrollView alloc] init];
     self.scrollView.delegate = self;
+    self.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
     [self.view addSubview:self.scrollView];
     self.previousImageIndex = -1;
     self.currentImageIndex = 0;
@@ -36,18 +38,29 @@
     self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.size.width * 3, self.scrollView.bounds.size.height);
     self.scrollView.contentOffset = CGPointMake(self.scrollView.bounds.size.width, 0);
     self.currentOffsetX = self.scrollView.contentOffset.x;
-    [self setUpScrollView:0.0];
+    [self setUpScrollView:0.0 delta:0.0];
 }
 
-- (void)setUpScrollView:(CGFloat)radianOffset
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"setUpScrollView: radian offset %f, currentImageIndex %d scroll offset %f current offset %f", radianOffset * 180 / M_PI, self.currentImageIndex, self.scrollView.contentOffset.x, self.currentOffsetX);
+    NSLog(@"scrollViewDidScroll %f self.currentOffsetX %f", scrollView.contentOffset.x, self.currentOffsetX);
+    if (self.currentOffsetX == 0)//|| [scrollView isDecelerating])
+        return;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    CGFloat deltaX = self.currentOffsetX - scrollView.contentOffset.x;
+    CGFloat radianOffset = ((deltaX * M_PI) / self.scrollView.bounds.size.width);
+    [self setUpScrollView:radianOffset delta:deltaX];
+    self.previousDeltaX = deltaX;
+}
 
+- (void)setUpScrollView:(CGFloat)radianOffset delta:(CGFloat)deltaX
+{
+    NSLog(@"Radian offset %f, delta %f, currentImageIndex %d scroll offset %f current offset %f", radianOffset * 180 / M_PI, deltaX, self.currentImageIndex, self.scrollView.contentOffset.x, self.currentOffsetX);
     CGFloat thumbnailWidth = self.scrollView.bounds.size.width / 2;
     CGFloat thumbnailHeight = [self imageSize].height * thumbnailWidth / [self imageSize].width;
     
     [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
+ 
     NSMutableArray *views = [@[] mutableCopy];
     for (int index = -2; index <= 2; index++) {
         UIImageView *view = [self.datasource viewAtIndex:index + self.currentImageIndex];
@@ -65,6 +78,17 @@
     for (UIView *view in [self sortViewByWidth:views]) {
         [self.scrollView addSubview:view];
     }
+    
+    if (radianOffset < -M_PI_4 && self.currentImageIndex < [self.datasource numberOfItems] - 1) {
+        radianOffset += M_PI_4;
+        self.currentImageIndex++;
+        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y) animated:NO];
+    } else if (radianOffset > M_PI_4 && self.currentImageIndex > 0) {
+        radianOffset -= M_PI_4;
+        self.currentImageIndex--;
+        [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y) animated:NO];
+    }
+
 }
 
 - (NSArray *)sortViewByWidth:(NSArray *)views
@@ -95,18 +119,6 @@
     return _imageSize;
 }
 
- - (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (self.currentOffsetX == 0)
-        return;
-    CGFloat deltaX = self.currentOffsetX - scrollView.contentOffset.x;
-    CGFloat radianOffset = ((deltaX * M_PI) / self.scrollView.bounds.size.width);
-
-    //    radianOffset = -M_PI_4;
-    radianOffset = [self adjustRadian:radianOffset deltaX:deltaX];
-    [self setUpScrollView:radianOffset];
-}
-
 - (CGFloat)adjustRadian:(CGFloat)radianOffset deltaX:(CGFloat)deltaX
 {
     if (radianOffset > M_PI_4) {
@@ -120,7 +132,8 @@
         radianOffset += M_PI_4;
         if (self.currentImageIndex >= [self.datasource numberOfItems])
             self.currentImageIndex = [self.datasource numberOfItems] - 1;
-        self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y);
+        self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x - deltaX, self.scrollView.contentOffset.y);
+        self.currentOffsetX -= deltaX;
     }
     return radianOffset;
 }
