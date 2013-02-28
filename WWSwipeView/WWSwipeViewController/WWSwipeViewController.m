@@ -56,11 +56,10 @@
 - (void)setUpScrollView:(CGFloat)radianOffset delta:(CGFloat)deltaX
 {
     NSLog(@"Radian offset %f, delta %f, currentImageIndex %d scroll offset %f current offset %f", radianOffset * 180 / M_PI, deltaX, self.currentImageIndex, self.scrollView.contentOffset.x, self.currentOffsetX);
+    
     CGFloat thumbnailWidth = self.scrollView.bounds.size.width / 2;
     CGFloat thumbnailHeight = [self imageSize].height * thumbnailWidth / [self imageSize].width;
     
-    [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
- 
     NSMutableArray *views = [@[] mutableCopy];
     for (int index = -2; index <= 2; index++) {
         UIImageView *view = [self.datasource viewAtIndex:index + self.currentImageIndex];
@@ -75,10 +74,27 @@
             [views addObject:view];
         }
     }
+    [self addToScrollViewByWidth:views];
+    [self adjustScrollViewOffset:radianOffset deltaX:deltaX];
+
+}
+
+- (CGFloat)radianFromPosition:(NSInteger)index
+{
+    return index * M_PI_4;
+}
+
+- (void)addToScrollViewByWidth:(NSArray *)views
+{
+    [self.scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     for (UIView *view in [self sortViewByWidth:views]) {
         [self.scrollView addSubview:view];
     }
-    
+}
+
+- (void)adjustScrollViewOffset:(CGFloat)radianOffset deltaX:(CGFloat)deltaX
+{
     if (radianOffset < -M_PI_4 && self.currentImageIndex < [self.datasource numberOfItems] - 1) {
         radianOffset += M_PI_4;
         self.currentImageIndex++;
@@ -88,7 +104,6 @@
         self.currentImageIndex--;
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y) animated:NO];
     }
-
 }
 
 - (NSArray *)sortViewByWidth:(NSArray *)views
@@ -106,36 +121,12 @@
     }];
 }
 
-- (CGFloat)radianFromPosition:(NSInteger)index
-{
-    return index * M_PI / 4;
-}
-
 - (CGSize)imageSize
 {
     if (_imageSize.width == 0) {
         self.imageSize = [self.datasource viewAtIndex:0].image.size;
     }
     return _imageSize;
-}
-
-- (CGFloat)adjustRadian:(CGFloat)radianOffset deltaX:(CGFloat)deltaX
-{
-    if (radianOffset > M_PI_4) {
-        self.currentImageIndex--;
-        radianOffset -= M_PI_4;
-        if (self.currentImageIndex <= 0)
-            self.currentImageIndex = 0;
-        self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y);
-    } else if (radianOffset < -M_PI_4) {
-        self.currentImageIndex++;
-        radianOffset += M_PI_4;
-        if (self.currentImageIndex >= [self.datasource numberOfItems])
-            self.currentImageIndex = [self.datasource numberOfItems] - 1;
-        self.scrollView.contentOffset = CGPointMake(self.scrollView.contentOffset.x - deltaX, self.scrollView.contentOffset.y);
-        self.currentOffsetX -= deltaX;
-    }
-    return radianOffset;
 }
 
 - (void)setCurrentImageIndex:(NSInteger)currentImageIndex
@@ -148,4 +139,5 @@
         self.previousImageIndex = currentImageIndex;
     }
 }
+
 @end
