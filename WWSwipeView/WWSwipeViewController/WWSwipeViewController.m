@@ -103,6 +103,11 @@
         radianOffset -= M_PI_4;
         self.currentImageIndex--;
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y) animated:NO];
+    } else if (self.currentImageIndex == 0 && self.scrollView.contentOffset.x < self.scrollView.bounds.size.width) {
+        self.scrollView.contentOffset = CGPointMake(self.scrollView.bounds.size.width, self.scrollView.contentOffset.y);
+    } else if (self.currentImageIndex >= [self.datasource numberOfItems] - 1 &&
+               self.scrollView.contentOffset.x > self.scrollView.bounds.size.width) {
+        self.scrollView.contentOffset = CGPointMake(self.scrollView.bounds.size.width, self.scrollView.contentOffset.y);
     }
 }
 

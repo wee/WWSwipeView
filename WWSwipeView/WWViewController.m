@@ -33,15 +33,13 @@
     self.swipeViewController.datasource = self;
     self.swipeViewController.delegate = self;
     
-    self.swipeViewController.view.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300);
+    self.swipeViewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, 300);
     [self.view addSubview:self.swipeViewController.view];
     
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    self.swipeViewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, 300);
 }
 
 // iOS 5 support
@@ -72,7 +70,6 @@
     imageView.userInteractionEnabled = NO;
     imageView.layer.masksToBounds = NO;
     imageView.layer.cornerRadius = 8;
-    imageView.layer.shadowOffset = CGSizeMake(-5, 5);
     imageView.layer.shadowRadius = 5;
     imageView.layer.shadowOpacity = 0.5;
     return imageView;
