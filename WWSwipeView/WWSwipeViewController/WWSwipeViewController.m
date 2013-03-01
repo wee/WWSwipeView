@@ -15,11 +15,21 @@
 @property (nonatomic, assign) NSInteger currentImageIndex;
 @property (nonatomic, assign) NSInteger previousImageIndex;
 @property (nonatomic, assign) CGFloat currentOffsetX;
-@property (nonatomic, assign) CGFloat previousDeltaX;
+@property (nonatomic, assign) BOOL beingSnapped;
 
 @end
 
 @implementation WWSwipeViewController
+
+- (id)init
+{
+    if ((self = [super init]) != nil) {
+        self.previousImageIndex = -1;
+        self.currentImageIndex = 0;
+        self.snapToCenter = NO;
+    }
+    return self;
+}
 
 - (void)viewDidLoad
 {
@@ -27,8 +37,6 @@
     self.scrollView.delegate = self;
     self.scrollView.decelerationRate = UIScrollViewDecelerationRateFast;
     [self.view addSubview:self.scrollView];
-    self.previousImageIndex = -1;
-    self.currentImageIndex = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -50,14 +58,13 @@
     CGFloat deltaX = self.currentOffsetX - scrollView.contentOffset.x;
     CGFloat radianOffset = ((deltaX * M_PI) / self.scrollView.bounds.size.width);
     [self setUpScrollView:radianOffset delta:deltaX];
-    self.previousDeltaX = deltaX;
 }
 
 - (void)setUpScrollView:(CGFloat)radianOffset delta:(CGFloat)deltaX
 {
     NSLog(@"Radian offset %f, delta %f, currentImageIndex %d scroll offset %f current offset %f", radianOffset * 180 / M_PI, deltaX, self.currentImageIndex, self.scrollView.contentOffset.x, self.currentOffsetX);
     
-    CGFloat thumbnailWidth = self.scrollView.bounds.size.width / 2;
+    CGFloat thumbnailWidth = self.scrollView.bounds.size.width / 2.5;
     CGFloat thumbnailHeight = [self imageSize].height * thumbnailWidth / [self imageSize].width;
     
     NSMutableArray *views = [@[] mutableCopy];
@@ -103,11 +110,28 @@
         radianOffset -= M_PI_4;
         self.currentImageIndex--;
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y) animated:NO];
-    } else if (self.currentImageIndex == 0 && self.scrollView.contentOffset.x < self.scrollView.bounds.size.width) {
+    } else if (self.currentImageIndex <= 0 && self.scrollView.contentOffset.x < self.scrollView.bounds.size.width) {
         self.scrollView.contentOffset = CGPointMake(self.scrollView.bounds.size.width, self.scrollView.contentOffset.y);
     } else if (self.currentImageIndex >= [self.datasource numberOfItems] - 1 &&
                self.scrollView.contentOffset.x > self.scrollView.bounds.size.width) {
         self.scrollView.contentOffset = CGPointMake(self.scrollView.bounds.size.width, self.scrollView.contentOffset.y);
+    } else {
+        if (self.snapToCenter && !self.beingSnapped) {
+            @synchronized(self) {
+                [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(snap:) userInfo:[NSNumber numberWithFloat:self.scrollView.contentOffset.x + deltaX] repeats:NO];
+                self.beingSnapped = YES;
+            }
+        }
+    }
+}
+
+- (void)snap:(NSTimer *)timer
+{
+    @synchronized(self) {
+        self.beingSnapped = YES;
+        NSNumber *snapToX = timer.userInfo;
+        [self.scrollView setContentOffset:CGPointMake([snapToX floatValue], self.scrollView.contentOffset.y) animated:YES];
+        self.beingSnapped = NO;
     }
 }
 

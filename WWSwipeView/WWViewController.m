@@ -32,7 +32,7 @@
     self.swipeViewController = [[WWSwipeViewController alloc] init];
     self.swipeViewController.datasource = self;
     self.swipeViewController.delegate = self;
-    
+    self.swipeViewController.snapToCenter = YES;
     self.swipeViewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, 300);
     [self.view addSubview:self.swipeViewController.view];
     
