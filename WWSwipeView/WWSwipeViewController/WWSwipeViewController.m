@@ -27,6 +27,7 @@
         self.previousImageIndex = -1;
         self.currentImageIndex = 0;
         self.snapToCenter = NO;
+        self.bounce = YES;
     }
     return self;
 }
@@ -52,19 +53,40 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSLog(@"scrollViewDidScroll %f self.currentOffsetX %f", scrollView.contentOffset.x, self.currentOffsetX);
-    if (self.currentOffsetX == 0)//|| [scrollView isDecelerating])
+    CGFloat maxBounceOffset = self.bounce ? [self thumbnailWidth] / 2 : 0;
+    if (self.currentOffsetX == 0)
         return;
+    if ([self isFirstItemAndBounceBeyondLimit:maxBounceOffset]) {
+        scrollView.contentOffset = CGPointMake(scrollView.bounds.size.width - maxBounceOffset, scrollView.contentOffset.y);
+    } else if ([self isLastItemAndBounceBeyondLimit:maxBounceOffset]) {
+        scrollView.contentOffset = CGPointMake(scrollView.bounds.size.width + maxBounceOffset, scrollView.contentOffset.y);
+    }
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     CGFloat deltaX = self.currentOffsetX - scrollView.contentOffset.x;
-    CGFloat radianOffset = ((deltaX * M_PI) / self.scrollView.bounds.size.width);
+    CGFloat radianOffset = ((deltaX * M_PI) / scrollView.bounds.size.width);
     [self setUpScrollView:radianOffset delta:deltaX];
+}
+
+- (BOOL)isFirstItemAndBounceBeyondLimit:(CGFloat)maxBounceOffset
+{
+    return self.currentImageIndex == 0 && self.scrollView.contentOffset.x < self.scrollView.bounds.size.width - maxBounceOffset;
+}
+
+- (BOOL)isLastItemAndBounceBeyondLimit:(CGFloat)maxBounceOffset
+{
+    return self.currentImageIndex == [self.datasource numberOfItems]-1 && self.scrollView.contentOffset.x > self.scrollView.bounds.size.width + maxBounceOffset;
+}
+
+- (CGFloat)thumbnailWidth
+{
+    return self.scrollView.bounds.size.width / 2.5;
 }
 
 - (void)setUpScrollView:(CGFloat)radianOffset delta:(CGFloat)deltaX
 {
     NSLog(@"Radian offset %f, delta %f, currentImageIndex %d scroll offset %f current offset %f", radianOffset * 180 / M_PI, deltaX, self.currentImageIndex, self.scrollView.contentOffset.x, self.currentOffsetX);
     
-    CGFloat thumbnailWidth = self.scrollView.bounds.size.width / 2.5;
+    CGFloat thumbnailWidth = [self thumbnailWidth];
     CGFloat thumbnailHeight = [self imageSize].height * thumbnailWidth / [self imageSize].width;
     
     NSMutableArray *views = [@[] mutableCopy];
@@ -121,17 +143,27 @@
         self.currentImageIndex--;
         [self.scrollView setContentOffset:CGPointMake(self.scrollView.contentOffset.x + deltaX, self.scrollView.contentOffset.y) animated:NO];
     } else if (self.currentImageIndex <= 0 && self.scrollView.contentOffset.x < self.scrollView.bounds.size.width) {
-        self.scrollView.contentOffset = CGPointMake(self.scrollView.bounds.size.width, self.scrollView.contentOffset.y);
+        if (!self.beingSnapped) {
+            [self willSnapInSeconds:0.1];
+        }
     } else if (self.currentImageIndex >= [self.datasource numberOfItems] - 1 &&
                self.scrollView.contentOffset.x > self.scrollView.bounds.size.width) {
-        self.scrollView.contentOffset = CGPointMake(self.scrollView.bounds.size.width, self.scrollView.contentOffset.y);
+//        self.scrollView.contentOffset = CGPointMake(self.scrollView.bounds.size.width, self.scrollView.contentOffset.y);
+        if (!self.beingSnapped) {
+            [self willSnapInSeconds:0.1];
+        }
     } else {
         if (self.snapToCenter && !self.beingSnapped) {
-            @synchronized(self) {
-                [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(snap:) userInfo:[NSNumber numberWithFloat:self.scrollView.contentOffset.x + deltaX] repeats:NO];
-                self.beingSnapped = YES;
-            }
+            [self willSnapInSeconds:0.2];
         }
+    }
+}
+
+- (void)willSnapInSeconds:(CGFloat)seconds
+{
+    @synchronized(self) {
+        [NSTimer scheduledTimerWithTimeInterval:seconds target:self selector:@selector(snap:) userInfo:[NSNumber numberWithFloat:self.scrollView.bounds.size.width] repeats:NO];
+        self.beingSnapped = YES;
     }
 }
 

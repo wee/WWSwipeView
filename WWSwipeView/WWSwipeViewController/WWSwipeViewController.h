@@ -28,5 +28,6 @@
 @property (nonatomic, weak) id<WWSwipeViewDataSource> datasource;
 @property (nonatomic, weak) id<WWSwipeViewDelegate> delegate;
 @property (nonatomic, assign) BOOL snapToCenter;
+@property (nonatomic, assign) BOOL bounce;
 
 @end
