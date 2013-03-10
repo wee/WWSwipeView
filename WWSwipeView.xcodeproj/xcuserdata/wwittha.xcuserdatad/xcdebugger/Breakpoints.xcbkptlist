@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "WWSwipeView/WWSwipeViewController/WWSwipeViewController.m"
-         timestampString = "383804573.72158"
+         timestampString = "384644343.717737"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "133"
-         endingLineNumber = "133"
+         startingLineNumber = "140"
+         endingLineNumber = "140"
          landmarkName = "-snap:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "WWSwipeView/WWSwipeViewController/WWSwipeViewController.m"
-         timestampString = "383804573.72158"
+         timestampString = "384644343.717737"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "120"
-         endingLineNumber = "120"
+         startingLineNumber = "127"
+         endingLineNumber = "127"
          landmarkName = "-adjustScrollViewOffset:deltaX:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -151,11 +151,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "WWSwipeView/WWSwipeViewController/WWSwipeViewController.m"
-         timestampString = "383804573.72158"
+         timestampString = "384644343.717737"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "134"
-         endingLineNumber = "134"
+         startingLineNumber = "141"
+         endingLineNumber = "141"
          landmarkName = "-snap:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -164,11 +164,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "WWSwipeView/WWSwipeViewController/WWSwipeViewController.m"
-         timestampString = "383804573.72158"
+         timestampString = "384644343.717737"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "121"
-         endingLineNumber = "121"
+         startingLineNumber = "128"
+         endingLineNumber = "128"
          landmarkName = "-adjustScrollViewOffset:deltaX:"
          landmarkType = "5">
       </FileBreakpoint>

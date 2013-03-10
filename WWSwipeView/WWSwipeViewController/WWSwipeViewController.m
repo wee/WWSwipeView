@@ -69,21 +69,31 @@
     
     NSMutableArray *views = [@[] mutableCopy];
     for (int index = -2; index <= 2; index++) {
-        UIImageView *view = [self.datasource viewAtIndex:index + self.currentImageIndex];
-        if (view) {
-            CGFloat radian = [self radianFromPosition:index] + radianOffset;
-            CGFloat centerX = self.scrollView.contentOffset.x + (self.scrollView.bounds.size.width * (1 + sin(radian)) / 2.0);
-            CGFloat scale = 0.5 + 0.5 * cos(radian);
-            CGFloat x = centerX - (thumbnailWidth * scale) / 2.0;
-            CGFloat centerY = self.scrollView.bounds.size.height / 2.0;
-            CGFloat y = centerY - (thumbnailHeight * scale) / 2.0;
-            view.frame = CGRectMake(x, y, thumbnailWidth * scale, thumbnailHeight * scale);
+        UIImageView *view = [self buildImageView:index
+                                    radianOffset:radianOffset
+                                           width:thumbnailWidth
+                                          height:thumbnailHeight];
+        if (view)
             [views addObject:view];
-        }
     }
     [self addToScrollViewByWidth:views];
     [self adjustScrollViewOffset:radianOffset deltaX:deltaX];
 
+}
+
+- (UIImageView *)buildImageView:(NSUInteger)index radianOffset:(CGFloat)radianOffset width:(CGFloat)width height:(CGFloat)height
+{
+    UIImageView *view = [self.datasource viewAtIndex:index + self.currentImageIndex];
+    if (view) {
+        CGFloat radian = [self radianFromPosition:index] + radianOffset;
+        CGFloat centerX = self.scrollView.contentOffset.x + (self.scrollView.bounds.size.width * (1 + sin(radian)) / 2.0);
+        CGFloat scale = 0.5 + 0.5 * cos(radian);
+        CGFloat x = centerX - (width * scale) / 2.0;
+        CGFloat centerY = self.scrollView.bounds.size.height / 2.0;
+        CGFloat y = centerY - (height * scale) / 2.0;
+        view.frame = CGRectMake(x, y, width * scale, height * scale);
+    }
+    return view;
 }
 
 - (CGFloat)radianFromPosition:(NSInteger)index
@@ -153,7 +163,7 @@
 - (CGSize)imageSize
 {
     if (_imageSize.width == 0) {
-        self.imageSize = [self.datasource viewAtIndex:0].image.size;
+        self.imageSize = [self.datasource numberOfItems] > 0 ? [self.datasource viewAtIndex:0].image.size : CGSizeZero;
     }
     return _imageSize;
 }
